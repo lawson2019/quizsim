@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测评模拟器</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="nav-toggle">
+        <button id="navToggleBtn" class="btn-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <div class="question-nav hidden">
+        <div class="nav-header">
+            <h3>题目导航</h3>
+            <div class="nav-controls">
+                <select id="typeFilter" class="type-filter">
+                    <option value="all">所有题型</option>
+                    <option value="言语理解">言语理解</option>
+                    <option value="资料分析">资料分析</option>
+                    <option value="图形推理">图形推理</option>
+                </select>
+                <button class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="question-list" id="questionNav"></div>
+    </div>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>测评模拟器</h1>
+                <div class="header-buttons">
+                    <button id="modeToggleBtn" class="btn">
+                        <i class="fas fa-edit"></i> 练习模式
+                    </button>
+                    <button id="settingsBtn" class="btn">
+                        <i class="fas fa-cog"></i> 设置
+                    </button>
+                </div>
+            </div>
+
+            <div class="timer hidden" id="timerDisplay">
+                <i class="far fa-clock"></i>
+                <span id="timeSpent">00:00:00</span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="questionNumber">题目 0/0</span>
+                    <div class="question-actions"></div>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+        </header>
+
+        <main>
+            <div id="questionContainer">
+                <div class="question-header">
+                    <div class="question-type" id="questionType">资料分析</div>
+                    <div class="question-badges">
+                        <button id="markQuestion" class="btn-icon">
+                            <i class="fas fa-bookmark"></i> 标记题目
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="question"></div>
+                <div id="options"></div>
+
+                <div class="controls">
+                    <div class="nav-buttons">
+                        <button id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                            上一题
+                        </button>
+                        <button id="nextBtn">
+                            下一题
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button id="checkAnswer" class="hidden">
+                        <i class="fas fa-check-circle"></i>
+                        查看答案
+                    </button>
+                    <button id="submitTest" class="hidden">
+                        <i class="fas fa-paper-plane"></i>
+                        提交测试
+                    </button>
+                </div>
+            </div>
+
+            <div id="answer" class="hidden">
+                <h3>正确答案：<span id="correctAnswer"></span></h3>
+                <div id="explanation"></div>
+            </div>
+
+            <div class="status-bar">
+                <div class="question-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">答对：</span>
+                        <span class="stat-value" id="correctCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">答错：</span>
+                        <span class="stat-value" id="wrongCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">正确率：</span>
+                        <span class="stat-value" id="accuracy">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">已标记：</span>
+                        <span class="stat-value" id="markedCount">0</span>
+                    </div>
+                </div>
+                <div class="completion-info">
+                    <span class="stat-label">完成度：</span>
+                    <span class="stat-value" id="completion">0%</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- 设置面板 -->
+        <div id="settingsPanel" class="side-panel hidden">
+            <div class="panel-header">
+                <h2>设置</h2>
+                <button class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="settings-group">
+                    <h3>练习模式设置</h3>
+                    <div class="setting-item">
+                        <label class="setting-label">题目顺序：</label>
+                        <div class="setting-control">
+                            <select id="questionOrderSelect">
+                                <option value="sequential">顺序答题</option>
+                                <option value="random">随机答题</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 测试结果面板 -->
+        <div id="resultsPanel" class="side-panel hidden">
+            <div class="panel-header">
+                <h2>测试结果</h2>
+                <button class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="results-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">总题数：</span>
+                        <span class="summary-value" id="totalQuestions">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">答对：</span>
+                        <span class="summary-value" id="totalCorrect">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">答错：</span>
+                        <span class="summary-value" id="totalWrong">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">正确率：</span>
+                        <span class="summary-value" id="finalAccuracy">0%</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">用时：</span>
+                        <span class="summary-value" id="totalTime">00:00:00</span>
+                    </div>
+                </div>
+                <div class="results-details">
+                    <h3>答题详情</h3>
+                    <div class="question-groups">
+                        <div class="question-group">
+                            <h4>答错题目</h4>
+                            <div id="wrongQuestionsList" class="question-list"></div>
+                        </div>
+                        <div class="question-group">
+                            <h4>答对题目</h4>
+                            <div id="correctQuestionsList" class="question-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 帮助按钮和帮助面板 -->
+    <div id="helpBtn" class="help-btn">
+        <i class="fas fa-question-circle"></i>
+    </div>
+    <div id="helpPanel" class="side-panel hidden">
+        <div class="panel-header">
+            <h2>使用说明</h2>
+            <button class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-content">
+            <div class="help-section">
+                <h3>基本操作</h3>
+                <ul>
+                    <li><i class="fas fa-edit"></i> 练习模式：自由练习，可查看答案和解析</li>
+                    <li><i class="fas fa-clock"></i> 模拟测评：限时作答，提交前不显示答案</li>
+                    <li><i class="fas fa-bookmark"></i> 标记题目：按 M 键快速标记/取消标记</li>
+                </ul>
+            </div>
+            <div class="help-section">
+                <h3>快捷键</h3>
+                <ul>
+                    <li><kbd>M</kbd> 标记当前题目</li>
+                </ul>
+            </div>
+            <div class="help-section">
+                <h3>答题记录</h3>
+                <ul>
+                    <li>左侧导航可查看答题进度</li>
+                    <li>绿色表示答对，红色表示答错</li>
+                    <li>橙色书签表示已标记题目</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
