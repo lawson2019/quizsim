@@ -55,26 +55,27 @@
    - 安装时使用默认选项即可
 
 1. 克隆代码
-   - 按下键盘上的 `Windows键 + R`
-   - 在弹出的运行窗口中输入 `cmd` 并按回车
-   - 在命令提示符中输入：
-     ```
-     git clone https://github.com/yourusername/quizsim.git
-     cd quizsim
-     ```
+   - 打开命令提示符（按下 `Windows键 + R`，输入 `cmd` 并按回车）
+   - 导航到你想要存放代码的目录
+   - 执行以下命令：
+      ```bash
+      git clone https://github.com/yourusername/quizsim.git
+      cd quizsim
+      ```
 
 2. 安装依赖
-   - 在同一个命令提示符窗口中输入：
-     ```
-     npm install
-     ```
+   - 在项目目录中执行：
+      ```bash
+      npm install
+      ```
+   注意：这会安装所有必要的依赖项，包括开发依赖。node_modules目录会自动创建，且已在.gitignore中配置为不会上传到GitHub。
 
 3. 启动程序
-   - 继续在命令提示符中输入：
-     ```
-     npm start
-     ```
-   - 程序会自动在浏览器中打开
+   - 在项目目录中执行：
+      ```bash
+      npm start
+      ```
+   - Electron应用程序会自动启动
 
 以上三种方式，推荐使用第一种"安装包"方式，最简单快捷。如果你是开发者或者想要研究源代码，可以使用第三种方式。
 ## 重要说明 ⚠️
