@@ -67,7 +67,7 @@
    - 访问 nodejs.org 下载并安装Node.js（14.x或更高版本）
    - 安装时使用默认选项即可
 
-1. 克隆代码（或点击Code → Download ZIP）
+1. 克隆代码（或在Releases中下载Source Code）
    - 打开命令提示符
    - 导航到你想要存放代码的目录
    - 执行以下命令：
