@@ -1,0 +1,48 @@
+{
+  "name": "quizsim",
+  "version": "1.0.0",
+  "description": "测评模拟器",
+  "main": "electron.js",
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "server": "node server.js",
+    "build": "electron-builder --win nsis"
+  },
+  "keywords": ["electron", "quiz", "education", "assessment"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.quizsim",
+    "productName": "测评模拟器",
+    "asar": true,
+    "win": {
+      "target": "nsis",
+      "icon": "images/image1.png",
+      "signingHashAlgorithms": null,
+      "sign": null,
+      "signAndEditExecutable": false,
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "quizsim"
+    }
+  }
+}
