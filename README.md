@@ -95,6 +95,12 @@
       ```
    - Electron应用程序会自动启动
 
+4. 启动服务器
+  - 在项目目录中执行：
+     ```bash
+      node server.js
+      ```
+  - 打开`index.html` 文件
 
 ### 题库文件说明
 - 文件名必须是：`test.md`
